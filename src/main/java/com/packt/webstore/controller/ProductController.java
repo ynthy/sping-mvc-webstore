@@ -6,6 +6,7 @@ import com.packt.webstore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.math.BigDecimal;
@@ -28,6 +29,12 @@ public class ProductController {
     @RequestMapping("/all")
     public String allProducts(Model model) {
         model.addAttribute("products", productService.getAllProducts());
+        return "products";
+    }
+
+    @RequestMapping("/{category}")
+    public String categoryProducts(Model model, @PathVariable("category") String category) {
+        model.addAttribute("products", productService.getAllProductsFromCategory(category));
         return "products";
     }
 }
